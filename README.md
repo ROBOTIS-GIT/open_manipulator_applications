@@ -5,12 +5,12 @@
 ## ROS Packages for OpenManipulator
 |Version|Kinetic + Ubuntu Xenial|Melodic + Ubuntu Bionic|
 |:---:|:---:|:---:|
-|[![GitHub version](https://badge.fury.io/gh/ROBOTIS-GIT%2Fopen_manipulator_msgs.svg)](https://badge.fury.io/gh/ROBOTIS-GIT%2Fopen_manipulator_msgs)|[![Build Status](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_msgs.svg?branch=kinetic-devel)](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_msgs)|[![Build Status](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_msgs.svg?branch=melodic-devel)](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_msgs)|
+|[![GitHub version](https://badge.fury.io/gh/ROBOTIS-GIT%2Fopen_manipulator_applications.svg)](https://badge.fury.io/gh/ROBOTIS-GIT%2Fopen_manipulator_applications)|[![Build Status](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_applications.svg?branch=kinetic-devel)](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_applications)|[![Build Status](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_msgs.svg?branch=melodic-devel)](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_msgs)|
 
 ## ROBOTIS e-Manual for OpenManipulator
 - [ROBOTIS e-Manual for OpenManipulator](http://emanual.robotis.com/docs/en/platform/openmanipulator/)
 
-## Wiki for open_manipulator_msgs Package
+## Wiki for open_manipulator_applications Package
 - 
 
 ## Open Source related to OpenManipulator
