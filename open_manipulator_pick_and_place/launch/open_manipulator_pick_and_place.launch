@@ -1,0 +1,8 @@
+<launch>
+  <arg name="robot_name"   default="open_manipulator"/>
+
+  <group ns="$(arg robot_name)">
+    <node name="open_manipulator_pick_and_place" pkg="open_manipulator_pick_and_place" type="open_manipulator_pick_and_place" output="screen">
+      </node>
+  </group>
+</launch>
