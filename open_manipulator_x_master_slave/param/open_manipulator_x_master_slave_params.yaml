@@ -1,0 +1,8 @@
+﻿open_manipulator_x_master_slave:
+  ros__parameters:
+    service_call_period: 0.010
+    joint1_id: 1
+    joint2_id: 2
+    joint3_id: 3
+    joint4_id: 4
+    gripper_id: 5
