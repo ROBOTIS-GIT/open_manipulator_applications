@@ -12,6 +12,7 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED
   COMPONENTS
     roscpp
+    sensor_msgs
     open_manipulator_msgs
     ar_track_alvar_msgs
 )
@@ -35,6 +36,7 @@ catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS
     roscpp
+    sensor_msgs
     open_manipulator_msgs
     ar_track_alvar_msgs
 )
