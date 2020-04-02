@@ -9,7 +9,8 @@ add_compile_options(-std=c++11)
 ################################################################################
 # Find catkin packages and libraries for catkin and system dependencies
 ################################################################################
-find_package(catkin REQUIRED COMPONENTS
+find_package(catkin REQUIRED
+  COMPONENTS
     roscpp
     open_manipulator_msgs
     ar_track_alvar_msgs
@@ -32,8 +33,10 @@ find_package(catkin REQUIRED COMPONENTS
 ################################################################################
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp open_manipulator_msgs ar_track_alvar_msgs
-
+  CATKIN_DEPENDS
+    roscpp
+    open_manipulator_msgs
+    ar_track_alvar_msgs
 )
 
 ################################################################################

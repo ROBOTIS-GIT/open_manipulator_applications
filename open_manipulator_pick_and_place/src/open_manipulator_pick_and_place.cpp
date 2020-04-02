@@ -19,11 +19,11 @@
 #include "open_manipulator_pick_and_place/open_manipulator_pick_and_place.h"
 
 OpenManipulatorPickandPlace::OpenManipulatorPickandPlace()
-    :node_handle_(""),
-     priv_node_handle_("~"),
-     mode_state_(0),
-     demo_count_(0),
-     pick_ar_id_(0)
+: node_handle_(""),
+  priv_node_handle_("~"),
+  mode_state_(0),
+  demo_count_(0),
+  pick_ar_id_(0)
 {
   present_joint_angle_.resize(NUM_OF_JOINT_AND_TOOL, 0.0);
   present_kinematic_position_.resize(3, 0.0);
@@ -39,7 +39,8 @@ OpenManipulatorPickandPlace::OpenManipulatorPickandPlace()
 
 OpenManipulatorPickandPlace::~OpenManipulatorPickandPlace()
 {
-  if(ros::isStarted()) {
+  if (ros::isStarted()) 
+  {
     ros::shutdown();
     ros::waitForShutdown();
   }
@@ -54,10 +55,10 @@ void OpenManipulatorPickandPlace::initServiceClient()
 
 void OpenManipulatorPickandPlace::initSubscribe()
 {
-  open_manipulator_states_sub_       = node_handle_.subscribe("states", 10, &OpenManipulatorPickandPlace::manipulatorStatesCallback, this);
+  open_manipulator_states_sub_ = node_handle_.subscribe("states", 10, &OpenManipulatorPickandPlace::manipulatorStatesCallback, this);
   open_manipulator_joint_states_sub_ = node_handle_.subscribe("joint_states", 10, &OpenManipulatorPickandPlace::jointStatesCallback, this);
   open_manipulator_kinematics_pose_sub_ = node_handle_.subscribe("gripper/kinematics_pose", 10, &OpenManipulatorPickandPlace::kinematicsPoseCallback, this);
-  ar_pose_marker_sub_   = node_handle_.subscribe("/ar_pose_marker", 10, &OpenManipulatorPickandPlace::arPoseMarkerCallback, this);
+  ar_pose_marker_sub_ = node_handle_.subscribe("/ar_pose_marker", 10, &OpenManipulatorPickandPlace::arPoseMarkerCallback, this);
 }
 
 bool OpenManipulatorPickandPlace::setJointSpacePath(std::vector<std::string> joint_name, std::vector<double> joint_angle, double path_time)
@@ -67,7 +68,7 @@ bool OpenManipulatorPickandPlace::setJointSpacePath(std::vector<std::string> joi
   srv.request.joint_position.position = joint_angle;
   srv.request.path_time = path_time;
 
-  if(goal_joint_space_path_client_.call(srv))
+  if (goal_joint_space_path_client_.call(srv))
   {
     return srv.response.is_planned;
   }
@@ -80,7 +81,7 @@ bool OpenManipulatorPickandPlace::setToolControl(std::vector<double> joint_angle
   srv.request.joint_position.joint_name.push_back("gripper");
   srv.request.joint_position.position = joint_angle;
 
-  if(goal_tool_control_client_.call(srv))
+  if (goal_tool_control_client_.call(srv))
   {
     return srv.response.is_planned;
   }
@@ -104,7 +105,7 @@ bool OpenManipulatorPickandPlace::setTaskSpacePath(std::vector<double> kinematic
 
   srv.request.path_time = path_time;
 
-  if(goal_task_space_path_client_.call(srv))
+  if (goal_task_space_path_client_.call(srv))
   {
     return srv.response.is_planned;
   }
@@ -113,7 +114,7 @@ bool OpenManipulatorPickandPlace::setTaskSpacePath(std::vector<double> kinematic
 
 void OpenManipulatorPickandPlace::manipulatorStatesCallback(const open_manipulator_msgs::OpenManipulatorState::ConstPtr &msg)
 {
-  if(msg->open_manipulator_moving_state == msg->IS_MOVING)
+  if (msg->open_manipulator_moving_state == msg->IS_MOVING)
     open_manipulator_is_moving_ = true;
   else
     open_manipulator_is_moving_ = false;
@@ -123,13 +124,13 @@ void OpenManipulatorPickandPlace::jointStatesCallback(const sensor_msgs::JointSt
 {
   std::vector<double> temp_angle;
   temp_angle.resize(NUM_OF_JOINT_AND_TOOL);
-  for(int i = 0; i < msg->name.size(); i ++)
+  for (int i = 0; i < msg->name.size(); i ++)
   {
-    if(!msg->name.at(i).compare("joint1"))  temp_angle.at(0) = (msg->position.at(i));
-    else if(!msg->name.at(i).compare("joint2"))  temp_angle.at(1) = (msg->position.at(i));
-    else if(!msg->name.at(i).compare("joint3"))  temp_angle.at(2) = (msg->position.at(i));
-    else if(!msg->name.at(i).compare("joint4"))  temp_angle.at(3) = (msg->position.at(i));
-    else if(!msg->name.at(i).compare("gripper"))  temp_angle.at(4) = (msg->position.at(i));
+    if (!msg->name.at(i).compare("joint1"))  temp_angle.at(0) = (msg->position.at(i));
+    else if (!msg->name.at(i).compare("joint2"))  temp_angle.at(1) = (msg->position.at(i));
+    else if (!msg->name.at(i).compare("joint3"))  temp_angle.at(2) = (msg->position.at(i));
+    else if (!msg->name.at(i).compare("joint4"))  temp_angle.at(3) = (msg->position.at(i));
+    else if (!msg->name.at(i).compare("gripper"))  temp_angle.at(4) = (msg->position.at(i));
   }
   present_joint_angle_ = temp_angle;
 }
@@ -147,7 +148,7 @@ void OpenManipulatorPickandPlace::kinematicsPoseCallback(const open_manipulator_
 void OpenManipulatorPickandPlace::arPoseMarkerCallback(const ar_track_alvar_msgs::AlvarMarkers::ConstPtr &msg)
 {
   std::vector<ArMarker> temp_buffer;
-  for(int i = 0; i < msg->markers.size(); i ++)
+  for (int i = 0; i < msg->markers.size(); i ++)
   {
     ArMarker temp;
     temp.id = msg->markers.at(i).id;
@@ -164,9 +165,9 @@ void OpenManipulatorPickandPlace::arPoseMarkerCallback(const ar_track_alvar_msgs
 void OpenManipulatorPickandPlace::publishCallback(const ros::TimerEvent&)
 {
   printText();
-  if(kbhit()) setModeState(std::getchar());
+  if (kbhit()) setModeState(std::getchar());
 
-  if(mode_state_ == HOME_POSE)
+  if (mode_state_ == HOME_POSE)
   {
     std::vector<double> joint_angle;
 
@@ -181,25 +182,25 @@ void OpenManipulatorPickandPlace::publishCallback(const ros::TimerEvent&)
     setToolControl(gripper_value);
     mode_state_ = 0;
   }
-  else if(mode_state_ == DEMO_START)
+  else if (mode_state_ == DEMO_START)
   {
-    if(!open_manipulator_is_moving_) demoSequence();
+    if (!open_manipulator_is_moving_) demoSequence();
   }
-  else if(mode_state_ == DEMO_STOP)
+  else if (mode_state_ == DEMO_STOP)
   {
 
   }
 }
 void OpenManipulatorPickandPlace::setModeState(char ch)
 {
-  if(ch == '1')
+  if (ch == '1')
     mode_state_ = HOME_POSE;
-  else if(ch == '2')
+  else if (ch == '2')
   {
     mode_state_ = DEMO_START;
     demo_count_ = 0;
   }
-  else if(ch == '3')
+  else if (ch == '3')
     mode_state_ = DEMO_STOP;
 }
 
@@ -210,7 +211,7 @@ void OpenManipulatorPickandPlace::demoSequence()
   std::vector<double> kinematics_orientation;
   std::vector<double> gripper_value;
 
-  switch(demo_count_)
+  switch (demo_count_)
   {
   case 0: // home pose
     joint_angle.push_back( 0.00);
@@ -235,9 +236,9 @@ void OpenManipulatorPickandPlace::demoSequence()
     demo_count_ ++;
     break;
   case 3: // pick the box
-    for(int i = 0; i < ar_marker_pose.size(); i ++)
+    for (int i = 0; i < ar_marker_pose.size(); i ++)
     {
-      if(ar_marker_pose.at(i).id == pick_ar_id_)
+      if (ar_marker_pose.at(i).id == pick_ar_id_)
       {
         kinematics_position.push_back(ar_marker_pose.at(i).position[0]);
         kinematics_position.push_back(ar_marker_pose.at(i).position[1]);
@@ -278,9 +279,9 @@ void OpenManipulatorPickandPlace::demoSequence()
   case 7: // place the box
     kinematics_position.push_back(present_kinematic_position_.at(0));
     kinematics_position.push_back(present_kinematic_position_.at(1));
-    if(pick_ar_id_ == 0)  kinematics_position.push_back(present_kinematic_position_.at(2)-0.076);
-    else if(pick_ar_id_ == 1)  kinematics_position.push_back(present_kinematic_position_.at(2)-0.041);
-    else if(pick_ar_id_ == 2)  kinematics_position.push_back(present_kinematic_position_.at(2)-0.006);
+    if (pick_ar_id_ == 0)  kinematics_position.push_back(present_kinematic_position_.at(2)-0.076);
+    else if (pick_ar_id_ == 1)  kinematics_position.push_back(present_kinematic_position_.at(2)-0.041);
+    else if (pick_ar_id_ == 2)  kinematics_position.push_back(present_kinematic_position_.at(2)-0.006);
     kinematics_orientation.push_back(0.74);
     kinematics_orientation.push_back(0.00);
     kinematics_orientation.push_back(0.66);
@@ -312,9 +313,9 @@ void OpenManipulatorPickandPlace::demoSequence()
     joint_angle.push_back( 0.70);
     setJointSpacePath(joint_name_, joint_angle, 1.5);
     demo_count_ = 1;
-    if(pick_ar_id_ == 0) pick_ar_id_ = 1;
-    else if(pick_ar_id_ == 1) pick_ar_id_ = 2;
-    else if(pick_ar_id_ == 2)
+    if (pick_ar_id_ == 0) pick_ar_id_ = 1;
+    else if (pick_ar_id_ == 1) pick_ar_id_ = 2;
+    else if (pick_ar_id_ == 2)
     {
       pick_ar_id_ = 0;
       demo_count_ = 0;
@@ -340,7 +341,7 @@ void OpenManipulatorPickandPlace::printText()
 
   printf("-----------------------------\n");
 
-  if(mode_state_ == DEMO_START)
+  if (mode_state_ == DEMO_START)
   {
     switch(demo_count_)
     {
@@ -366,7 +367,7 @@ void OpenManipulatorPickandPlace::printText()
       break;
     }
   }
-  else if(mode_state_ == DEMO_STOP)
+  else if (mode_state_ == DEMO_STOP)
   {
     printf("The end of demo\n");
   }
@@ -384,8 +385,8 @@ void OpenManipulatorPickandPlace::printText()
          present_kinematic_position_.at(2));
   printf("-----------------------------\n");
 
-  if(ar_marker_pose.size()) printf("AR marker detected.\n");
-  for(int i = 0; i < ar_marker_pose.size(); i ++)
+  if (ar_marker_pose.size()) printf("AR marker detected.\n");
+  for (int i = 0; i < ar_marker_pose.size(); i ++)
   {
     printf("ID: %d --> X: %.3lf\tY: %.3lf\tZ: %.3lf\n",
            ar_marker_pose.at(i).id,
