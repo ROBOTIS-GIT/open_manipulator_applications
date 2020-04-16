@@ -1,3 +1,0 @@
-<launch>
-  <node name="open_manipulator_pick_and_place" pkg="open_manipulator_pick_and_place" type="open_manipulator_pick_and_place" output="screen"/>
-</launch>
