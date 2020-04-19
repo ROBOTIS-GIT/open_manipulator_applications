@@ -20,7 +20,6 @@
 
 using namespace std::chrono_literals;
 
-
 OpenManipulatorXMasterSlave::OpenManipulatorXMasterSlave(std::string usb_port, std::string baud_rate)
 : Node("open_manipulator_x_master_slave")
 {

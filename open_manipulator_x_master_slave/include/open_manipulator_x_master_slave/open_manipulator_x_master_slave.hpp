@@ -34,7 +34,6 @@
 #define STOP_RECORDING_TRAJECTORY_MODE 2
 #define PLAY_RECORDED_TRAJECTORY_MODE 3
 
-
 typedef struct _WaypointBuffer
 {
   std::vector<double> joint_angle;
@@ -46,10 +45,6 @@ class OpenManipulatorXMasterSlave : public rclcpp::Node
  public:
   OpenManipulatorXMasterSlave(std::string usb_port, std::string baud_rate);
   ~OpenManipulatorXMasterSlave();
-
-  void update_callback();  
-  
-  rclcpp::TimerBase::SharedPtr update_timer_;
 
  private:
   /*****************************************************************************
@@ -76,23 +71,29 @@ class OpenManipulatorXMasterSlave : public rclcpp::Node
   void init_parameters();
 
   /*****************************************************************************
+  ** ROS timers
+  *****************************************************************************/
+  rclcpp::TimerBase::SharedPtr update_timer_;
+
+  void update_callback();  
+
+  /*****************************************************************************
   ** ROS Clients
   *****************************************************************************/
   rclcpp::Client<open_manipulator_msgs::srv::SetJointPosition>::SharedPtr goal_joint_space_path_client_;
   rclcpp::Client<open_manipulator_msgs::srv::SetJointPosition>::SharedPtr goal_tool_control_client_;
+
+  void set_goal();
+  bool set_joint_space_path(double path_time, std::vector<double> set_goal_joint_position = {});
+  bool set_tool_control(double set_goal_tool_position = -1.0);
 
   /*****************************************************************************
   ** Others
   *****************************************************************************/
   void init_open_manipulator_x(STRING usb_port = "/dev/ttyUSB0", STRING baud_rate = "1000000", double service_call_period = 0.010);
   void sync_open_manipulator_x(bool recorded_state);
-  double get_service_call_period() {return service_call_period_;}
 
-  void set_goal();
-  bool set_joint_space_path(double path_time, std::vector<double> set_goal_joint_position = {});
-  bool set_tool_control(double set_goal_tool_position = -1.0);
   void set_mode_state(char ch);
-
   void print_text();
   struct termios oldt_;
   void restore_terminal_settings();
