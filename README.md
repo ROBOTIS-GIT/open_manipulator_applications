@@ -2,16 +2,11 @@
 <img src="https://github.com/ROBOTIS-GIT/emanual/blob/master/assets/images/platform/openmanipulator_x/OpenManipulator.png">
 <img src="https://github.com/ROBOTIS-GIT/emanual/blob/master/assets/images/platform/openmanipulator_x/OpenManipulator_Chain_Capture.png" width="500">
 
-## ROS Packages for OpenManipulator
-|Version|Kinetic + Ubuntu Xenial|Melodic + Ubuntu Bionic|
-|:---:|:---:|:---:|
-|[![GitHub version](https://badge.fury.io/gh/ROBOTIS-GIT%2Fopen_manipulator_applications.svg)](https://badge.fury.io/gh/ROBOTIS-GIT%2Fopen_manipulator_applications)|[![Build Status](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_applications.svg?branch=kinetic-devel)](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_applications)|[![Build Status](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_applications.svg?branch=melodic-devel)](https://travis-ci.org/ROBOTIS-GIT/open_manipulator_applications)|
+- Active Branches: noetic, main
+- Legacy Branches: *-devel
 
 ## ROBOTIS e-Manual for OpenManipulator
 - [ROBOTIS e-Manual for OpenManipulator](http://emanual.robotis.com/docs/en/platform/openmanipulator/)
-
-## Wiki for open_manipulator_applications Package
-- 
 
 ## Open Source related to OpenManipulator
 - [robotis_manipulator](https://github.com/ROBOTIS-GIT/robotis_manipulator)
